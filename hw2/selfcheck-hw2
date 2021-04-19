@@ -46,7 +46,7 @@ fi
 
 cd "$tmpdir"
 
-if [ ! -f scanner.lex ] 
+if [ ! -f source.lex ]
 	then
 	echo "File scanner.lex not found!"
 	exit
