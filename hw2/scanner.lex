@@ -1,5 +1,6 @@
 %{
 #include "output.hpp"
+#include "parser.tab.hpp"
 %}
 
 %option yylineno
@@ -10,7 +11,7 @@ whitespace [[:space:]]
 %%
 
 {whitespace}                                                 ;
-//[^\r\n]*(\r|\n|\r\n)?                                      ;
+\/\/[^\r\n]*(\r|\n|\r\n)?                                    ;
 void                                                         return VOID;
 int                                                          return INT;
 byte                                                         return BYTE;
@@ -44,7 +45,8 @@ default                                                      return DEFAULT;
 (\*)                                                         return MULT;
 (\/)                                                         return DIV;
 [a-zA-Z][a-zA-Z0-9]*                                         return ID;
-0 | [1-9][0-9]*                                              return NUM;
+0|[1-9][0-9]*                                                return NUM;
 \"([^\n\r\"\\]|\\[rnt"\\])+\"                                return STRING;
+.                                                            output::errorLex(yylineno);
 
 %%
